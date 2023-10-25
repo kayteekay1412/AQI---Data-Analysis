@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Oct 15 23:25:53 2023
-
 @author: ktk
 """
-
-#Jayant Sharma(RA2111053010006)
 import pandas as pd
 import plotly.express as px
 import plotly.io as pio
@@ -15,11 +11,9 @@ pio.templates.default = "plotly_white"
 data = pd.read_csv(r"D:\Karthik\Python Programs\Air Quality Index\delhiaqi (2).csv")
 print(data.head())
 
-#Jayant Sharma(RA2111053010006)
 data['date'] = pd.to_datetime(data['date'])
 print(data.describe())
 
-#Jayant Sharma(RA2111053010006)
 # time series plot for each air pollutant
 fig = go.Figure()
 
@@ -31,7 +25,6 @@ fig.update_layout(title='Time Series Analysis of Air Pollutants in Delhi',
                   xaxis_title='Date', yaxis_title='Concentration (µg/m³)')
 fig.show()
 
-#Jayant Sharma(RA2111053010006)
 # Define AQI breakpoints and corresponding AQI values
 aqi_breakpoints = [
     (0, 12.0, 50), (12.1, 35.4, 100), (35.5, 55.4, 150),
@@ -73,7 +66,6 @@ def categorize_aqi(aqi_value):
 data['AQI Category'] = data['AQI'].apply(categorize_aqi)
 print(data.head())
 
-#Jayant Sharma(RA2111053010006)
 # AQI over time
 fig = px.bar(data, x="date", y="AQI", 
              title="AQI of Delhi in January")
@@ -81,7 +73,6 @@ fig.update_xaxes(title="Date")
 fig.update_yaxes(title="AQI")
 fig.show()
 
-#Jayant Sharma(RA2111053010006)
 fig = px.histogram(data, x="date", 
                     color="AQI Category", 
                     title="AQI Category Distribution Over Time")
@@ -89,7 +80,6 @@ fig.update_xaxes(title="Date")
 fig.update_yaxes(title="Count")
 fig.show()
 
-#Jayant Sharma(RA2111053010006)
 # Define pollutants and their colors
 pollutants = ["co", "no", "no2", "o3", "so2", "pm2_5", "pm10", "nh3"]
 pollutant_colors = px.colors.qualitative.Plotly
@@ -115,7 +105,6 @@ fig.update_layout(legend_title="Pollutant")
 fig.show()
 #total_concentrations is a 1-D labelled array
 
-#Jayant Sharma(RA2111053010006)
 # Extract the hour from the date
 data['Hour'] = pd.to_datetime(data['date']).dt.hour
 
@@ -129,7 +118,6 @@ fig.update_xaxes(title="Hour of the Day")
 fig.update_yaxes(title="Average AQI")
 fig.show()
 
-#Jayant Sharma(RA2111053010006)
 # Average AQI by Day of the Week
 data['Day_of_Week'] = data['date'].dt.day_name()
 average_aqi_by_day = data.groupby('Day_of_Week')['AQI'].mean().reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
